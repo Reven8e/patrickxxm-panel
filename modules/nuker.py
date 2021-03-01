@@ -3,6 +3,7 @@ from . import bot_token
 from discord.ext import commands
 from discord.utils import get
 
+os.system("cls")
 
 intents = discord.Intents.all()
 client = commands.Bot(command_prefix = '.')
