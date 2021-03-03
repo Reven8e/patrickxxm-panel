@@ -33,7 +33,7 @@ class token_keker():
         
 
     def screen(self):
-        os.system("clear")
+        os.system("cls")
         print(f"{Fore.GREEN}Good Tokens: {self.good}")
         print(f"{Fore.BLUE}Unverifed Tokens: {self.unverifed}")
         print(f"{Fore.RED}Bad Tokens: {self.bad}")

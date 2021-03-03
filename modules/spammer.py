@@ -4,7 +4,7 @@ from colorama import Fore
 
 class Spammer():
     def __init__(self):
-        os.system("clear")
+        os.system("cls")
         print(f"{Fore.BLUE}[CONSOLE] [0] Exit.")
         print(f"{Fore.BLUE}[CONSOLE] [1] Joiner.")
         print(f"{Fore.BLUE}[CONSOLE] [2] Leaver.")
@@ -37,7 +37,7 @@ class Spammer():
 
     def joiner(self, token, code):
         headers = {"Authorization": token,
-            "User-Agent" :"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36",
+            "User-Agent" :"Mozilla/5.0 (Macintosh; Intel Mac OS X 11_0_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36",
             "Content-Type": "application/json"}
 
         url = f"{self.JOINER}{code}"
@@ -46,7 +46,7 @@ class Spammer():
 
     def leaver(self, token, guild_id):
         headers = {"Authorization": token,
-            "User-Agent" :"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"}
+            "User-Agent" :"Mozilla/5.0 (Macintosh; Intel Mac OS X 11_0_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36"}
         
         url = f"{self.LEAVER}{guild_id}"
         r = requests.delete(url, headers=headers)
@@ -91,7 +91,7 @@ class Spammer():
     
     def reactioner(self, token, channel_id, message_id, Emoji, add):
         headers = {"Authorization": token,
-            "User-Agent" :"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"}
+            "User-Agent" :"Mozilla/5.0 (Macintosh; Intel Mac OS X 11_0_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36"}
         self.total += 1
 
         emo = emojis.encode(Emoji)
@@ -113,7 +113,7 @@ class Spammer():
     
     def friender(self, token, user, tag):
         headers = {"Authorization": token,
-            "User-Agent" :"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36",
+            "User-Agent" :"Mozilla/5.0 (Macintosh; Intel Mac OS X 11_0_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36",
             "Content-Type": "application/json"}
         data = json.dumps({"username":user, "discriminator":tag})
         self.total += 1
@@ -132,7 +132,7 @@ class Spammer():
 
     def unfriender(self, token, user_id):
         headers = {"Authorization": token,
-            "User-Agent" :"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36",
+            "User-Agent" :"Mozilla/5.0 (Macintosh; Intel Mac OS X 11_0_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36",
             "Content-Type": "application/json"}
         self.total += 1
 
