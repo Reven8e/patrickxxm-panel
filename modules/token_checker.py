@@ -1,10 +1,24 @@
-import requests, time, sys, threading, os, urllib, http
+import requests, time, threading, os
 from colorama import Fore
 
 class token_keker():
     def __init__(self):
         self.url = "https://discordapp.com/api/users/@me"
+        print(f"""{Fore.YELLOW}
 
+ ▄████▄  ██░ ██▓█████ ▄████▄  ██ ▄█▓█████ ██▀███  
+▒██▀ ▀█ ▓██░ ██▓█   ▀▒██▀ ▀█  ██▄█▒▓█   ▀▓██ ▒ ██▒
+▒▓█    ▄▒██▀▀██▒███  ▒▓█    ▄▓███▄░▒███  ▓██ ░▄█ ▒
+▒▓▓▄ ▄██░▓█ ░██▒▓█  ▄▒▓▓▄ ▄██▓██ █▄▒▓█  ▄▒██▀▀█▄  
+▒ ▓███▀ ░▓█▒░██░▒████▒ ▓███▀ ▒██▒ █░▒████░██▓ ▒██▒
+░ ░▒ ▒  ░▒ ░░▒░░░ ▒░ ░ ░▒ ▒  ▒ ▒▒ ▓░░ ▒░ ░ ▒▓ ░▒▓░
+  ░  ▒   ▒ ░▒░ ░░ ░  ░ ░  ▒  ░ ░▒ ▒░░ ░  ░ ░▒ ░ ▒░
+░        ░  ░░ ░  ░  ░       ░ ░░ ░   ░    ░░   ░ 
+░ ░      ░  ░  ░  ░  ░ ░     ░  ░     ░  ░  ░     
+░                    ░                            
+
+""")
+        print("\n")
         self.checked = 0
         self.unverifed = 0
         self.bad = 0
@@ -35,7 +49,7 @@ class token_keker():
     def screen(self):
         os.system("cls")
         print(f"{Fore.GREEN}Good Tokens: {self.good}")
-        print(f"{Fore.BLUE}Unverifed Tokens: {self.unverifed}")
+        print(f"{Fore.BLUE}Unverified Tokens: {self.unverifed}")
         print(f"{Fore.RED}Bad Tokens: {self.bad}")
         print(f"{Fore.YELLOW}Total Checked Tokens: {self.checked}")
         time.sleep(3)
@@ -44,27 +58,35 @@ class token_keker():
 
 
     def start(self):
-        tokens = open("tokens.txt", "r", encoding="utf-8", errors='ignore')
-        tokens = [token.strip() for token in tokens]
-        length = len(tokens)
-        if len(tokens) == 0:
-            print(f"{Fore.RED}[CONSOLE] No tokens found!")
+        os.system("cls")
+        print(f"{Fore.CYAN} [1] Go Back.")
+        print(f"{Fore.CYAN} [2] Start.")
+        option = int(input(": "))
+        if option == 1:
             return
-        threads = []
-        self.screen()
 
-        while True:
-            if self.checked < length:
-                if threading.active_count() < int(10):
-                    t = threading.Thread(target=self.check, args=(tokens[self.checked],))
-                    t.start()
-                    threads.append(t)
-                    self.checked += 1
+        elif option == 2:
+            tokens = open("tokens.txt", "r", encoding="utf-8", errors='ignore')
+            tokens = [token.strip() for token in tokens]
+            length = len(tokens)
+            if len(tokens) == 0:
+                print(f"{Fore.RED}[CONSOLE] No tokens found!")
+                time.sleep(5)
+                return
+            threads = []
+            self.screen()
 
-            else:
-                time.sleep(15)
-                self.verbose = False
-                print(f"\n\n{Fore.YELLOW}[CONSOLE] CLOSING!\nReopen the program to start checking! Btw open tokens_valid to get all valid tokens.")
-                time.sleep(3)
-                sys.exit(0)
-                
+            while True:
+                if self.checked < length:
+                    if threading.active_count() < int(10):
+                        t = threading.Thread(target=self.check, args=(tokens[self.checked],))
+                        t.start()
+                        threads.append(t)
+                        self.checked += 1
+
+                else:
+                    time.sleep(15)
+                    self.verbose = False
+                    print(f"\n\n{Fore.YELLOW}[CONSOLE] CLOSING!\nReopen the program to start checking! Btw open tokens_valid to get all valid tokens.")
+                    time.sleep(3)
+                    return

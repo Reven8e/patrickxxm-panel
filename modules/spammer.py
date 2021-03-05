@@ -5,7 +5,21 @@ from colorama import Fore
 class Spammer():
     def __init__(self):
         os.system("cls")
-        print(f"{Fore.BLUE}[CONSOLE] [0] Exit.")
+        print(f"""{Fore.MAGENTA}
+
+  ██████ ██▓███  ▄▄▄      ███▄ ▄███▓███▄ ▄███▓█████ ██▀███  
+▒██    ▒▓██░  ██▒████▄   ▓██▒▀█▀ ██▓██▒▀█▀ ██▓█   ▀▓██ ▒ ██▒
+░ ▓██▄  ▓██░ ██▓▒██  ▀█▄ ▓██    ▓██▓██    ▓██▒███  ▓██ ░▄█ ▒
+  ▒   ██▒██▄█▓▒ ░██▄▄▄▄██▒██    ▒██▒██    ▒██▒▓█  ▄▒██▀▀█▄  
+▒██████▒▒██▒ ░  ░▓█   ▓██▒██▒   ░██▒██▒   ░██░▒████░██▓ ▒██▒
+▒ ▒▓▒ ▒ ▒▓▒░ ░  ░▒▒   ▓▒█░ ▒░   ░  ░ ▒░   ░  ░░ ▒░ ░ ▒▓ ░▒▓░
+░ ░▒  ░ ░▒ ░      ▒   ▒▒ ░  ░      ░  ░      ░░ ░  ░ ░▒ ░ ▒░
+░  ░  ░ ░░        ░   ▒  ░      ░  ░      ░     ░    ░░   ░ 
+      ░               ░  ░      ░         ░     ░  ░  ░     
+                                                            
+
+""")
+        print(f"{Fore.BLUE}[CONSOLE] [0] Go Back.")
         print(f"{Fore.BLUE}[CONSOLE] [1] Joiner.")
         print(f"{Fore.BLUE}[CONSOLE] [2] Leaver.")
         print(f"{Fore.BLUE}[CONSOLE] [3] Server Spammer / DM Spammer.")
@@ -42,6 +56,18 @@ class Spammer():
 
         url = f"{self.JOINER}{code}"
         r = requests.post(url, headers=headers)
+
+        if "id" in r.text:
+            print("Joined")
+        elif "Missing Permissions" in r.text:
+            print("Missing Permission")
+            return
+        elif "Missing Access" in r.text:
+            print("Missing Access")
+            return
+        else:
+            print("Can't Join")
+            return
     
 
     def leaver(self, token, guild_id):
@@ -51,7 +77,18 @@ class Spammer():
         url = f"{self.LEAVER}{guild_id}"
         r = requests.delete(url, headers=headers)
 
-    
+        if "id" in r.text:
+            self.success += 1
+        elif "Missing Permissions" in r.text:
+            self.missing_permission += 1
+            return
+        elif "Missing Access" in r.text:
+            self.missing_access += 1
+            return
+        else:
+            self.bad += 1
+            return
+
     def spammer(self, token, obj_id, message, targ):
         headers = {"Authorization": token,
             "Content-Type": "application/json"}
@@ -149,7 +186,7 @@ class Spammer():
             self.bad += 1
         
     def screen(self):
-        os.system("clear")
+        os.system("cls")
         print(f"{Fore.GREEN}Sucesses: {self.success}")
         print(f"{Fore.BLUE}Missing Access (ban/not in server/cooldown): {self.missing_access}")
         print(f"{Fore.RED}Missing Permission: {self.missing_permission}")
