@@ -57,9 +57,9 @@ def printer():
       ░               ░  ░  ░             
                                           
 """)
-    print(f"{Fore.BLUE}[CONSOLE] [0] Bot Nuker.")
-    print("[CONSOLE] [1] Token Checker.")
-    print("[CONSOLE] [2] Spammer")
+    print(f"{Fore.BLUE}[CONSOLE] [1] Bot Nuker.")
+    print("[CONSOLE] [2] Token Checker.")
+    print("[CONSOLE] [3] Spammer")
     try:
         option = int(input(": "))
         return option
@@ -74,7 +74,7 @@ def main():
         os.system("cls")
         def start():
             option = printer()
-            if option == 0:
+            if option == 1:
                 try:
                     global bot_token
                     bot_token = open("bot_token.txt", "r")
@@ -86,14 +86,13 @@ def main():
                 try:
                     from .nuker import nuker
                 except ImportError:
-                    time.sleep(4)
                     pass
 
-            elif option == 1:
+            elif option == 2:
                 from .token_checker import token_keker
                 token_keker().start()
 
-            elif option == 2:
+            elif option == 3:
                 from .spammer import Spammer
                 Spammer().start()
 
@@ -103,6 +102,6 @@ def main():
         if again == "y":
             os.system("cls")
             start()
-        elif again == "no":
+        elif again == "n":
             print(f'\n{Fore.YELLOW}[CONSOLE] Oke mate cya!')
             break

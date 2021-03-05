@@ -4,6 +4,7 @@ from colorama import Fore
 class token_keker():
     def __init__(self):
         self.url = "https://discordapp.com/api/users/@me"
+        os.system("cls")
         print(f"""{Fore.YELLOW}
 
  ▄████▄  ██░ ██▓█████ ▄████▄  ██ ▄█▓█████ ██▀███  
@@ -58,7 +59,6 @@ class token_keker():
 
 
     def start(self):
-        os.system("cls")
         print(f"{Fore.CYAN} [1] Go Back.")
         print(f"{Fore.CYAN} [2] Start.")
         option = int(input(": "))

